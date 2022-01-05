@@ -22,7 +22,7 @@ export default class Scenes {
 
                 if (+sum) {
                     await ctx.scene.leave();
-                    return this.app.bot.Crypto.services.calculateDeposit(ctx, +sum)
+                    return this.app.bot.Crypto.services.replyCalculateDeposit(ctx, +sum)
                 }
 
                 return ctx.scene.reenter();

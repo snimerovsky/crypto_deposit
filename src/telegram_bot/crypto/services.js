@@ -21,29 +21,11 @@ export default class Services {
         }
     }
 
-    calculateDeposit = async (ctx, sum) => {
+    replyCalculateDeposit = async (ctx, sum) => {
         try {
             await ctx.reply(BOT_MESSAGES['calculate_deposit_progress'])
-            const month_sum = sum * process.env.PERCENT_OF_SUM / 100
-            const sundays_in_month = this.getAmountOfWeekDaysInMonth(moment(), MOMENT_SUNDAY_DAY)
-            sum = Math.floor((month_sum) / sundays_in_month)
 
-            const data = await this.getNotionCryptoData()
-            const today_date = moment().format('DD.MM.YYYY')
-
-            const text = `✅ Дані на ${today_date}:
-
-В місяць ви можете інвестувати <b>${month_sum}$</b> (${process.env.PERCENT_OF_SUM}%)
-
-З них кожної неділі (цього місяця їх ${sundays_in_month}) потрібно інвестувати в:
-
-${Object.keys(data).map(key => {
-    return `${key}: ${(data[key] * sum).toFixed(1)}$`
-            }).join(`
------------
-`)}
-
-Детальну інформацію про кожну валюту можна дізнатись <a href="${process.env.NOTION_PAGE}">тут</a>`
+            const text = await this.calculateDeposit(sum)
 
             return ctx.reply(text, depositKeyboard().reply({
                 parse_mode: 'HTML',
@@ -54,6 +36,31 @@ ${Object.keys(data).map(key => {
             await ctx.reply(`Виникла помилка: ${e.message}`)
             this.app.logger.error(`Error at calculateDeposit: ${e.message}`)
         }
+    }
+
+    calculateDeposit = async (sum) => {
+        const month_sum = sum * process.env.PERCENT_OF_SUM / 100
+        const sundays_in_month = this.getAmountOfWeekDaysInMonth(moment(), MOMENT_SUNDAY_DAY)
+        sum = Math.floor((month_sum) / sundays_in_month)
+
+        const data = await this.getNotionCryptoData()
+        const today_date = moment().format('DD.MM.YYYY')
+
+        const text = `✅ Дані на ${today_date}:
+
+В місяць ви можете інвестувати <b>${month_sum}$</b> (${process.env.PERCENT_OF_SUM}%)
+
+З них кожної неділі (цього місяця їх ${sundays_in_month}) потрібно інвестувати в:
+
+${Object.keys(data).map(key => {
+            return `${key}: ${(data[key] * sum).toFixed(1)}$`
+        }).join(`
+-----------
+`)}
+
+Детальну інформацію про кожну валюту можна дізнатись <a href="${process.env.NOTION_PAGE}">тут</a>`
+
+        return text
     }
 
     getNotionCryptoData = async () => {
