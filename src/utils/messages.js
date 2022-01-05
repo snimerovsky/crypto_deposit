@@ -1,4 +1,4 @@
-export const BOT_MESSAGES = {
+const BOT_MESSAGES = {
     'welcome': `👋 Привіт
 
 📝 Сюди можна ввести свій місячний депозит і я порахую скільки потрібно інвестувати в криптовалюту кожної неділі. Дані отримую від Notion
@@ -8,9 +8,11 @@ export const BOT_MESSAGES = {
     'calculate_deposit_progress': 'Рахую...'
 }
 
-export const BOT_BUTTONS = {
+const BOT_BUTTONS = {
     'main': '🏠 Головна',
     'deposit': '💰 Депозит'
 }
 
-export const MOMENT_SUNDAY_DAY = 0
+const MOMENT_SUNDAY_DAY = 0
+
+module.exports = {BOT_MESSAGES, BOT_BUTTONS, MOMENT_SUNDAY_DAY}

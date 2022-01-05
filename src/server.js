@@ -5,7 +5,7 @@ const {createLogger, format, transports} = require ("winston");
 const {logFormatConsole} = require ("./utils/functions");
 const TelegramBot = require("./telegram_bot");
 
-export const createServer = () => {
+createServer = () => {
     const app = express();
     app.server = http.createServer(app);
 
@@ -41,3 +41,5 @@ export const createServer = () => {
 
     return app
 }
+
+module.exports = {createServer}
