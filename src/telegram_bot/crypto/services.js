@@ -25,7 +25,7 @@ export default class Services {
         try {
             await ctx.reply(BOT_MESSAGES['calculate_deposit_progress'])
 
-            const text = await this.calculateDeposit(sum)
+            const text = await this.calculateDeposit(sum, moment().format('YYYY-MM-DD'))
 
             return ctx.reply(text, depositKeyboard().reply({
                 parse_mode: 'HTML',
@@ -38,13 +38,13 @@ export default class Services {
         }
     }
 
-    calculateDeposit = async (sum) => {
+    calculateDeposit = async (sum, date) => {
         const month_sum = sum * process.env.PERCENT_OF_SUM / 100
-        const sundays_in_month = this.getAmountOfWeekDaysInMonth(moment(), MOMENT_SUNDAY_DAY)
+        const sundays_in_month = this.getAmountOfWeekDaysInMonth(moment(date), MOMENT_SUNDAY_DAY)
         sum = Math.floor((month_sum) / sundays_in_month)
 
         const data = await this.getNotionCryptoData()
-        const today_date = moment().format('DD.MM.YYYY')
+        const today_date = moment(date).format('DD.MM.YYYY')
 
         const text = `✅ Дані на ${today_date}:
 
