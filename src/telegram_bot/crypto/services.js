@@ -3,7 +3,14 @@ import {BOT_MESSAGES, MOMENT_SUNDAY_DAY} from "../../utils/messages";
 import axiosOriginal from 'axios'
 import adapter from 'axios/lib/adapters/http'
 import moment from "moment";
-const axios = axiosOriginal.create({ adapter })
+
+let axios
+
+if (process.env.NODE_ENV === 'prod') {
+    axios = axiosOriginal.create({ adapter })
+} else {
+    axios = axiosOriginal
+}
 
 export default class Services {
     constructor(app) {

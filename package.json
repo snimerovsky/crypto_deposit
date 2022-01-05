@@ -4,11 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "NODE_ENV=dev nodemon -w src --exec \"babel-node src --unhandled-rejections=strict --presets env,stage-0\"",
+    "dev": "nodemon -w src --exec \"babel-node src --unhandled-rejections=strict --presets env,stage-0\"",
     "build": "rm -rf dist && webpack --mode production",
     "start": "node dist",
-    "test": "jest",
-    "test_bot": "mocha src/test/test.js --exit --timeout=100000"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
