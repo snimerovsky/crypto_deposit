@@ -69,9 +69,9 @@ ${Object.keys(data).map(key => {
         res = res['data']['results']
 
         for (let data of res) {
-            if (data['properties']['Назва']['title'].length > 0) {
-                if (data['properties']['% в портфелі']) {
-                    notion_data[data['properties']['Назва']['title'][0]['text']['content']] = data['properties']['% в портфелі']['number']
+            if (data['properties'][process.env.NOTION_DATABASE_TITLE]['title'].length > 0) {
+                if (data['properties'][process.env.NOTION_DATABASE_PERCENT]) {
+                    notion_data[data['properties'][process.env.NOTION_DATABASE_TITLE]['title'][0]['text']['content']] = data['properties'][process.env.NOTION_DATABASE_PERCENT]['number']
                 }
             }
         }
