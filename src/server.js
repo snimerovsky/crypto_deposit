@@ -1,9 +1,9 @@
-import express from "express";
-import http from "http";
-import bodyParser from "body-parser";
-import {createLogger, format, transports} from "winston";
-import {logFormatConsole} from "./utils/functions";
-import TelegramBot from "./telegram_bot";
+const express = require("express");
+const http = require("http");
+const bodyParser = require ("body-parser");
+const {createLogger, format, transports} = require ("winston");
+const {logFormatConsole} = require ("./utils/functions");
+const TelegramBot = require ("./telegram_bot");
 
 export const createServer = () => {
     const app = express();

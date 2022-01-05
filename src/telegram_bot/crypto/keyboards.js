@@ -1,4 +1,4 @@
-import {BOT_BUTTONS} from "../../utils/messages";
+const {BOT_BUTTONS} = require ("../../utils/messages");
 const {Keyboard} = require('telegram-keyboard')
 
 export const welcomeKeyboard = () => {

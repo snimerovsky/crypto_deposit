@@ -1,8 +1,8 @@
-import {depositKeyboard, welcomeKeyboard} from "./keyboards";
-import {BOT_MESSAGES, MOMENT_SUNDAY_DAY} from "../../utils/messages";
-import axiosOriginal from 'axios'
-import adapter from 'axios/lib/adapters/http'
-import moment from "moment";
+const {depositKeyboard, welcomeKeyboard} = require( "./keyboards");
+const {BOT_MESSAGES, MOMENT_SUNDAY_DAY} = require( "../../utils/messages");
+const axiosOriginal = require( 'axios')
+const adapter = require( 'axios/lib/adapters/http')
+const moment = require( "moment");
 
 let axios
 

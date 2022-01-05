@@ -1,4 +1,4 @@
-import { format } from 'winston'
+const { format } = require ('winston')
 const { printf } = format;
 
 

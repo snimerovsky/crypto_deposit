@@ -1,4 +1,4 @@
-import {createServer} from "./server";
+const {createServer} = require ("./server");
 require('dotenv').config()
 
 const PORT = process.env.PORT;

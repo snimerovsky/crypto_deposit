@@ -1,4 +1,4 @@
-import {BOT_MESSAGES} from "../../utils/messages";
+const {BOT_MESSAGES} = require( "../../utils/messages");
 
 const WizardScene = require("telegraf/scenes/wizard");
 

@@ -1,5 +1,5 @@
-import {createServer} from "../../server";
-import axios from 'axios'
+const {createServer} = require( "../../server");
+const axios = require( 'axios')
 jest.mock('axios');
 
 const app = createServer()

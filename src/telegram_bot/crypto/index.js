@@ -1,5 +1,5 @@
-import Services from "./services";
-import Scenes from "./scenes";
+const Services = require("./services");
+const Scenes = require( "./scenes");
 
 export default class Crypto {
     constructor(app) {
