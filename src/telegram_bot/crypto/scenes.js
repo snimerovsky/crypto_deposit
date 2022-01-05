@@ -10,7 +10,7 @@ export default class Scenes {
     getDeposit = new WizardScene(
         'get_deposit',
         async (ctx) => {
-            await ctx.reply(BOT_MESSAGES['get_deposit'])
+            await ctx.reply(BOT_MESSAGES['get_deposit'], {reply_markup: {remove_keyboard: true}})
 
             return ctx.wizard.next();
         },
@@ -22,13 +22,13 @@ export default class Scenes {
 
                 if (+sum) {
                     await ctx.scene.leave();
-                    return this.app.bot.crypto.services.calculateDeposit(ctx, +sum)
+                    return this.app.bot.Crypto.services.calculateDeposit(ctx, +sum)
                 }
 
                 return ctx.scene.reenter();
 
             } catch (e) {
-                console.log('error getPrepareInstitutionTime', e.message)
+                console.log('error getDeposit', e.message)
                 return ctx.scene.leave();
             }
         }

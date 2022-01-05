@@ -59,7 +59,7 @@ ${user_text ? `Text: ${user_text}` : ''}`);
 
   listenEvents = () => {
     this.bot.on("text", async (ctx) => {
-      if (ctx.message.text === '/start') {
+      if (ctx.message.text === '/start' || ctx.message.text === BOT_BUTTONS['main']) {
         return this.startBotMessage(ctx)
       }
 
