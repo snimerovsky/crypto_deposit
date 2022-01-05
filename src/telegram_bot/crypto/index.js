@@ -1,7 +1,7 @@
 const Services = require("./services");
 const Scenes = require( "./scenes");
 
-export default class Crypto {
+module.exports = class Crypto {
     constructor(app) {
         this.app = app
         this.services = new Services(app)

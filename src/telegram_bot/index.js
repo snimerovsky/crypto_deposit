@@ -1,8 +1,8 @@
-import Crypto from "./crypto";
-import {BOT_BUTTONS} from "../utils/messages";
+const Crypto = require ("./crypto");
+const {BOT_BUTTONS} = require ("../utils/messages");
 const { Telegraf, session, Stage } = require("telegraf");
 
-export default class TelegramBot {
+module.exports = class TelegramBot {
   constructor(app) {
     this.app = app;
     this.bot = new Telegraf(process.env.BOT_TOKEN);
@@ -86,4 +86,3 @@ ${user_text ? `Text: ${user_text}` : ''}`);
     return this.Crypto.services.replyWelcome(ctx)
   }
 }
-

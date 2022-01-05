@@ -12,7 +12,7 @@ if (process.env.NODE_ENV === 'prod') {
     axios = axiosOriginal
 }
 
-export default class Services {
+module.exports = class Services {
     constructor(app) {
         this.app = app;
     }

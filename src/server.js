@@ -3,7 +3,7 @@ const http = require("http");
 const bodyParser = require ("body-parser");
 const {createLogger, format, transports} = require ("winston");
 const {logFormatConsole} = require ("./utils/functions");
-const TelegramBot = require ("./telegram_bot");
+const TelegramBot = require("./telegram_bot");
 
 export const createServer = () => {
     const app = express();

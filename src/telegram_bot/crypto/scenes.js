@@ -2,7 +2,7 @@ const {BOT_MESSAGES} = require( "../../utils/messages");
 
 const WizardScene = require("telegraf/scenes/wizard");
 
-export default class Scenes {
+module.exports = class Scenes {
     constructor(app) {
         this.app = app;
     }
