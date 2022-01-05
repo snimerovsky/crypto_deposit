@@ -16,4 +16,8 @@ export default class Services {
             })
         }
     }
+
+    calculateDeposit = async (ctx, sum) => {
+
+    }
 }

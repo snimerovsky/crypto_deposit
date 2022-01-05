@@ -1,4 +1,5 @@
 import Crypto from "./crypto";
+import {BOT_BUTTONS} from "../utils/messages";
 const { Telegraf, session, Stage } = require("telegraf");
 
 export default class TelegramBot {
@@ -60,6 +61,10 @@ ${user_text ? `Text: ${user_text}` : ''}`);
     this.bot.on("text", async (ctx) => {
       if (ctx.message.text === '/start') {
         return this.startBotMessage(ctx)
+      }
+
+      if (ctx.message.text === BOT_BUTTONS['deposit']) {
+        return ctx.scene.enter('get_deposit')
       }
     })
   };

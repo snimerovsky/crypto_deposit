@@ -1,3 +1,5 @@
+import {BOT_MESSAGES} from "../../utils/messages";
+
 const WizardScene = require("telegraf/scenes/wizard");
 
 export default class Scenes {
@@ -8,7 +10,7 @@ export default class Scenes {
     getDeposit = new WizardScene(
         'get_deposit',
         async (ctx) => {
-
+            await ctx.reply(BOT_MESSAGES['get_deposit'])
 
             return ctx.wizard.next();
         },
@@ -16,7 +18,14 @@ export default class Scenes {
             try {
                 await this.checkForCommands(ctx);
 
+                const sum = ctx.update.message.text
 
+                if (+sum) {
+                    await ctx.scene.leave();
+                    return this.app.bot.crypto.services.calculateDeposit(ctx, +sum)
+                }
+
+                return ctx.scene.reenter();
 
             } catch (e) {
                 console.log('error getPrepareInstitutionTime', e.message)
