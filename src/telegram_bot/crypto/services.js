@@ -32,7 +32,9 @@ module.exports = class Services {
         try {
             await ctx.reply(BOT_MESSAGES['calculate_deposit_progress'])
 
-            const text = await this.calculateDeposit(sum, moment().format('YYYY-MM-DD'))
+            const notion_data = await this.getNotionCryptoData()
+
+            const text = this.calculateDeposit(notion_data, sum, moment().format('YYYY-MM-DD'))
 
             return ctx.reply(text, depositKeyboard().reply({
                 parse_mode: 'HTML',
@@ -45,12 +47,11 @@ module.exports = class Services {
         }
     }
 
-    calculateDeposit = async (sum, date) => {
+    calculateDeposit = (data, sum, date) => {
         const month_sum = sum * process.env.PERCENT_OF_SUM / 100
         const sundays_in_month = this.getAmountOfWeekDaysInMonth(moment(date), MOMENT_SUNDAY_DAY)
         sum = Math.floor((month_sum) / sundays_in_month)
 
-        const data = await this.getNotionCryptoData()
         const today_date = moment(date).format('DD.MM.YYYY')
 
         const text = `✅ Дані на ${today_date}:
@@ -88,7 +89,8 @@ ${data.map(currency_data => {
                     notion_data.push({
                         title: data['properties'][process.env.NOTION_DATABASE_TITLE]['title'][0]['text']['content'],
                         profile_percent: data['properties'][process.env.NOTION_DATABASE_PERCENT]['number'],
-                        symbol: data['properties'][process.env.NOTION_DATABASE_SYMBOL]['rich_text'][0]['text']['content']
+                        symbol: data['properties'][process.env.NOTION_DATABASE_SYMBOL]['rich_text'][0]['text']['content'],
+                        color: data['properties'][process.env.NOTION_DATABASE_COLOR]['rich_text'][0]['text']['content']
                     })
                 }
             }
