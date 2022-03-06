@@ -17,6 +17,8 @@ module.exports = {
                 exclude: /node_modules/,
                 use: ['babel-loader'],
             },
+            { test: /\.ts$/, loader: "ts-loader" },
+            { test: /\.node$/, use: "node-loader"}
         ],
     },
     target: 'node',
