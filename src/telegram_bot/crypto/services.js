@@ -59,8 +59,8 @@ module.exports = class Services {
 
 З них кожної неділі (цього місяця їх ${sundays_in_month}) потрібно інвестувати в:
 
-${Object.keys(data).map(key => {
-            return `${key}: ${(data[key] * sum).toFixed(1)}$`
+${data.map(currency_data => {
+            return `${currency_data['title']}: ${(currency_data['profile_percent'] * sum).toFixed(1)}$`
         }).join(`
 -----------
 `)}
@@ -71,7 +71,7 @@ ${Object.keys(data).map(key => {
     }
 
     getNotionCryptoData = async () => {
-        const notion_data = {}
+        const notion_data = []
 
         let res = await axios.post(`https://api.notion.com/v1/databases/${process.env.NOTION_DATABASE_ID}/query`, {}, {
             headers: {
@@ -85,10 +85,16 @@ ${Object.keys(data).map(key => {
         for (let data of res) {
             if (data['properties'][process.env.NOTION_DATABASE_TITLE]['title'].length > 0) {
                 if (data['properties'][process.env.NOTION_DATABASE_PERCENT]) {
-                    notion_data[data['properties'][process.env.NOTION_DATABASE_TITLE]['title'][0]['text']['content']] = data['properties'][process.env.NOTION_DATABASE_PERCENT]['number']
+                    notion_data.push({
+                        title: data['properties'][process.env.NOTION_DATABASE_TITLE]['title'][0]['text']['content'],
+                        profile_percent: data['properties'][process.env.NOTION_DATABASE_PERCENT]['number'],
+                        symbol: data['properties'][process.env.NOTION_DATABASE_SYMBOL]['rich_text'][0]['text']['content']
+                    })
                 }
             }
         }
+
+        notion_data.sort((a,b) => (a.profile_percent > b.profile_percent) ? -1 : ((b.profile_percent > a.profile_percent) ? 1 : 0))
 
         return notion_data
     }

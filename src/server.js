@@ -2,10 +2,10 @@ const express = require("express");
 const http = require("http");
 const bodyParser = require ("body-parser");
 const {createLogger, format, transports} = require ("winston");
-const {logFormatConsole} = require ("./utils/functions");
+const {logFormatConsole} = require ("./utils/helpers");
 const TelegramBot = require("./telegram_bot");
 
-createServer = () => {
+const createServer = () => {
     const app = express();
     app.server = http.createServer(app);
 
