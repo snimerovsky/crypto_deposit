@@ -12,6 +12,9 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "engines": {
+    "node": "12.15.0"
+  },
   "dependencies": {
     "axios": "^0.21.0",
     "base64url": "^3.0.1",
