@@ -3,6 +3,17 @@ const {BOT_MESSAGES, MOMENT_SUNDAY_DAY} = require( "../../utils/messages");
 const axiosOriginal = require( 'axios')
 const adapter = require( 'axios/lib/adapters/http')
 const moment = require( "moment");
+const { ChartJSNodeCanvas } = require('chartjs-node-canvas');
+const fs = require('fs');
+const {joinImages} = require('join-images');
+
+const width = 600;
+const height = 600;
+const backgroundColour = 'white';
+
+const chartJSNodeCanvas = new ChartJSNodeCanvas({ width, height, backgroundColour, chartCallback: (ChartJS) => {
+        ChartJS.register(require('chartjs-plugin-datalabels'))
+    }});
 
 let axios
 
@@ -33,6 +44,9 @@ module.exports = class Services {
             await ctx.reply(BOT_MESSAGES['calculate_deposit_progress'])
 
             const notion_data = await this.getNotionCryptoData()
+            const market_cap = await this.getMarketCap(notion_data)
+
+            console.log('market_cap', market_cap)
 
             const text = this.calculateDeposit(notion_data, sum, moment().format('YYYY-MM-DD'))
 
@@ -45,6 +59,16 @@ module.exports = class Services {
             await ctx.reply(`Виникла помилка: ${e.message}`)
             this.app.logger.error(`Error at calculateDeposit: ${e.message}`)
         }
+    }
+
+    getMarketCap = async (notion_data) => {
+        const currencies_res = await axios.get(`https://api.nomics.com/v1/currencies/ticker?key=${process.env.CRYPTO_TOKEN}&ids=${notion_data.map(v => v['symbol']).join(',')}&per-page=100&page=1`)
+        const market_cap = {}
+        currencies_res['data'].forEach(v => {
+            market_cap[v['id']] = v['market_cap']
+        })
+
+        return market_cap
     }
 
     calculateDeposit = (data, sum, date) => {
