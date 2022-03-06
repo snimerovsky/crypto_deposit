@@ -13,7 +13,7 @@
   "author": "",
   "license": "ISC",
   "engines": {
-    "node": "12.15.0"
+    "node": "10.x"
   },
   "dependencies": {
     "axios": "^0.21.0",
