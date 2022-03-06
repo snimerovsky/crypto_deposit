@@ -25,7 +25,25 @@ describe('crypto', function() {
                                     },
                                 }
                             ]
-                        }
+                        },
+                        "Символ": {
+                            "rich_text": [
+                                {
+                                    "text": {
+                                        "content": "BTC"
+                                    }
+                                }
+                            ]
+                        },
+                        "Колір": {
+                            "rich_text": [
+                                {
+                                    "text": {
+                                        "content": "color"
+                                    }
+                                }
+                            ]
+                        },
                     },
                 },
                 {
@@ -45,7 +63,25 @@ describe('crypto', function() {
                                     },
                                 }
                             ]
-                        }
+                        },
+                        "Символ": {
+                            "rich_text": [
+                                {
+                                    "text": {
+                                        "content": "ETH"
+                                    }
+                                }
+                            ]
+                        },
+                        "Колір": {
+                            "rich_text": [
+                                {
+                                    "text": {
+                                        "content": "color"
+                                    }
+                                }
+                            ]
+                        },
                     },
                 },
                 {
@@ -65,7 +101,25 @@ describe('crypto', function() {
                                     },
                                 }
                             ]
-                        }
+                        },
+                        "Символ": {
+                            "rich_text": [
+                                {
+                                    "text": {
+                                        "content": "XML"
+                                    }
+                                }
+                            ]
+                        },
+                        "Колір": {
+                            "rich_text": [
+                                {
+                                    "text": {
+                                        "content": "color"
+                                    }
+                                }
+                            ]
+                        },
                     },
                 },
             ],
@@ -77,7 +131,9 @@ describe('crypto', function() {
     })
 
     it('calculate deposit on Jan', async () => {
-        let res = await app.bot.Crypto.services.calculateDeposit(700, '2022-01-05')
+        const notion_data = await app.bot.Crypto.services.getNotionCryptoData()
+
+        let res = await app.bot.Crypto.services.calculateDeposit(notion_data, 700, '2022-01-05')
         expect(res).toEqual(`✅ Дані на 05.01.2022:
 
 В місяць ви можете інвестувати <b>140$</b> (20%)
@@ -94,7 +150,9 @@ XML: 2.8$
     })
 
     it('calculate deposit on Feb', async () => {
-        let res = await app.bot.Crypto.services.calculateDeposit(1000, '2022-02-05')
+        const notion_data = await app.bot.Crypto.services.getNotionCryptoData()
+
+        let res = await app.bot.Crypto.services.calculateDeposit(notion_data, 1000, '2022-02-05')
         expect(res).toEqual(`✅ Дані на 05.02.2022:
 
 В місяць ви можете інвестувати <b>200$</b> (20%)
