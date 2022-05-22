@@ -138,7 +138,8 @@ module.exports = class Services {
 З них кожної неділі (цього місяця їх ${sundays_in_month}) потрібно інвестувати в:
 
 ${data.map(currency_data => {
-            return `${currency_data['title']}: ${(currency_data['profile_percent'] * sum).toFixed(1)}$`
+            const price = currency_data['profile_percent'] * sum
+            return `${currency_data['title']}: ${price.toFixed(1)}$ (${(price * sundays_in_month / 2).toFixed(1)}$)`
         }).join(`
 -----------
 `)}
