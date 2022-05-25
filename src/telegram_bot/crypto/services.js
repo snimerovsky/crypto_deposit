@@ -192,7 +192,7 @@ ${data.map(currency_data => {
                 labels: notion_data.map(v => v['title']),
                 datasets: [{
                     label: '% в портфелі',
-                    data: notion_data.map(v => +v['profile_percent'] * 100),
+                    data: notion_data.map(v => +(v['profile_percent'] * 100).toFixed(1)),
                     backgroundColor: notion_data.map(v => `rgb(${v['color']})`),
                     hoverOffset: 4,
                 }]
